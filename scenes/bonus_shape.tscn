@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxn4m7p2kqv8w"]
+
+[ext_resource type="Script" path="res://scripts/bonus_shape.gd" id="1_bonus"]
+
+[node name="BonusShape" type="Area2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_bonus")
+
+[node name="ShapeLine" type="Line2D" parent="."]
+width = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+one_shot = true

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkm8x2p4qvn3y"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_ball"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ball"]
+bounce = 0.7
+friction = 0.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ball"]
+radius = 15.0
+
+[node name="Ball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ball")
+gravity_scale = 0.5
+script = ExtResource("1_ball")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ball")
+
+[node name="Circle" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="TrailContainer" type="Node2D" parent="."]
+z_index = -1
+top_level = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true

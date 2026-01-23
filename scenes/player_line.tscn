@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwp3k8m2qx1nt"]
+
+[ext_resource type="Script" path="res://scripts/player_line.gd" id="1_player"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_player"]
+bounce = 0.8
+
+[node name="PlayerLine" type="Node2D"]
+script = ExtResource("1_player")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 4.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]

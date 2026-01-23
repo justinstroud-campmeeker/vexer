@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8xk2m4qjv1hy"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="ScoreContainer" type="Node2D" parent="."]
+position = Vector2(20, 20)
+
+[node name="GravityIndicator" type="Node2D" parent="."]
+position = Vector2(1120, 30)
