@@ -13,6 +13,7 @@ extends Node2D
 
 const BALL_SCENE := preload("res://scenes/ball.tscn")
 const BONUS_SHAPE_SCENE := preload("res://scenes/bonus_shape.tscn")
+const EDGE_GLOW_SCRIPT := preload("res://scripts/edge_glow.gd")
 
 const INITIAL_SPAWN_INTERVAL := 3.0
 const MIN_SPAWN_INTERVAL := 0.5
@@ -24,7 +25,7 @@ const BOUNDARY_MARGIN := 50.0
 const FLASH_DURATION := 0.15
 const BALL_LOST_PENALTY := 50
 
-@export var gravity_rotation_threshold := 200  # Points needed to rotate gravity
+@export var gravity_rotation_threshold := 1000  # Points needed to rotate gravity
 
 # Gravity directions: 0=North(down), 1=East(left), 2=South(up), 3=West(right)
 const GRAVITY_VECTORS := [
@@ -78,6 +79,26 @@ func _trigger_flash() -> void:
 	is_flashing = true
 	flash_timer = FLASH_DURATION
 
+func _spawn_edge_glow(edge: int, color: Color) -> void:
+	var glow := Node2D.new()
+	glow.set_script(EDGE_GLOW_SCRIPT)
+	add_child(glow)
+	glow.setup(edge, viewport_size, color)
+
+func _get_spawn_edge() -> int:
+	# Returns the edge balls spawn from based on gravity direction
+	# 0=North, 1=East, 2=South, 3=West
+	match current_gravity_direction:
+		0: return 0  # Gravity down, spawn from North
+		1: return 1  # Gravity left, spawn from East
+		2: return 2  # Gravity up, spawn from South
+		3: return 3  # Gravity right, spawn from West
+	return 0
+
+func _get_exit_edge() -> int:
+	# Returns the edge balls exit from (opposite of spawn)
+	return (_get_spawn_edge() + 2) % 4
+
 func _update_flash(delta: float) -> void:
 	if is_flashing:
 		flash_timer -= delta
@@ -130,7 +151,7 @@ func stop_game() -> void:
 
 func _apply_gravity() -> void:
 	# Set physics gravity based on direction
-	var gravity_vector := GRAVITY_VECTORS[current_gravity_direction]
+	var gravity_vector: Vector2 = GRAVITY_VECTORS[current_gravity_direction]
 	PhysicsServer2D.area_set_param(
 		get_viewport().find_world_2d().space,
 		PhysicsServer2D.AREA_PARAM_GRAVITY_VECTOR,
@@ -209,8 +230,12 @@ func _spawn_ball() -> void:
 
 	ball.scored.connect(_on_ball_scored)
 	ball.hit_player_line.connect(_on_ball_hit_player_line)
+	ball.hit_wall.connect(_on_ball_hit_wall)
 
 	balls_container.add_child(ball)
+
+	# Green glow on spawn edge
+	_spawn_edge_glow(_get_spawn_edge(), Color.GREEN)
 
 	# Increase spawn rate
 	current_spawn_interval *= SPAWN_ACCELERATION
@@ -241,7 +266,21 @@ func _on_ball_scored(points: int) -> void:
 func _on_ball_hit_player_line() -> void:
 	player_line.start_throb()
 
+func _on_ball_hit_wall(wall_name: String) -> void:
+	# Yellow glow on the wall that was hit
+	var edge: int
+	match wall_name:
+		"NorthWall": edge = 0
+		"EastWall": edge = 1
+		"SouthWall": edge = 2
+		"WestWall": edge = 3
+		_: return
+	_spawn_edge_glow(edge, Color.YELLOW)
+
 func _on_ball_lost(ball: Node) -> void:
+	# Red glow on exit edge
+	_spawn_edge_glow(_get_exit_edge(), Color.RED)
+
 	# Subtract score, flash screen, explode shapes
 	hud.subtract_score(BALL_LOST_PENALTY)
 	_trigger_flash()

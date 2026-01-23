@@ -22,4 +22,5 @@ movie_writer/movie_file="/Volumes/1tb/godot/vexer/resources/foo.avi"
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

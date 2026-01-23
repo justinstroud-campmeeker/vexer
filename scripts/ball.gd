@@ -2,6 +2,7 @@ extends RigidBody2D
 
 signal scored(points: int)
 signal hit_player_line
+signal hit_wall(wall_name: String)
 
 @onready var circle: Line2D = $Circle
 @onready var trail_container: Node2D = $TrailContainer
@@ -130,6 +131,9 @@ func _on_body_entered(body: Node) -> void:
 	if body.get_parent() and body.get_parent().name == "PlayerLine":
 		_start_throb()
 		hit_player_line.emit()
+	# Check if it's a wall
+	elif body.name in ["NorthWall", "SouthWall", "EastWall", "WestWall"]:
+		hit_wall.emit(body.name)
 
 func _on_body_exited(body: Node) -> void:
 	bodies_in_contact.erase(body)
