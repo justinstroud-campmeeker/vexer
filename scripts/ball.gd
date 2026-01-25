@@ -18,8 +18,8 @@ const TRAIL_SPACING := 0.016
 const SPEED_INCREASE_RATE := 0.02  # Speed multiplier increase per second
 const MAX_SPEED_MULTIPLIER := 3.0
 const THROB_DURATION := 0.15
-const THROB_WIDTH := 5.0
-const NORMAL_WIDTH := 2.0
+const THROB_WIDTH := 7.0
+const NORMAL_WIDTH := 3.0
 
 var trail_positions: Array[Vector2] = []
 var trail_circles: Array[Line2D] = []

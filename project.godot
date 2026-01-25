@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="vexer"
-run/main_scene="res://scenes/testlevel.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameState="*res://scripts/game_state.gd"
+
 [editor]
 
-movie_writer/movie_file="/Volumes/1tb/godot/vexer/resources/foo.avi"
+movie_writer/movie_file="/Volumes/1tb/godot/vexer/resources/vexer.png"
 
 [rendering]
 

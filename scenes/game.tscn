@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2xk8m4qgv7hy"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
+[ext_resource type="PackedScene" path="res://scenes/player_line.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="3_hud"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_walls"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
+bounce = 0.8
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="NorthWall" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NorthWall"]
+rotation = -3.1415925
+shape = SubResource("WorldBoundaryShape2D_walls")
+
+[node name="SouthWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 648)
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SouthWall"]
+shape = SubResource("WorldBoundaryShape2D_walls")
+
+[node name="WestWall" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WestWall"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_walls")
+
+[node name="EastWall" type="StaticBody2D" parent="."]
+position = Vector2(1152, 0)
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EastWall"]
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_walls")
+
+[node name="PlayerLine" parent="." instance=ExtResource("2_player")]
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="BallSpawnTimer" type="Timer" parent="."]
+
+[node name="BonusSpawnTimer" type="Timer" parent="."]
+
+[node name="BallsContainer" type="Node2D" parent="."]
+
+[node name="ShapesContainer" type="Node2D" parent="."]

@@ -18,6 +18,15 @@ var gravity_arrow: Node2D = null
 func _ready() -> void:
 	_update_score_display()
 	_setup_gravity_indicator()
+	_update_layout()
+	get_tree().root.size_changed.connect(_on_viewport_resized)
+
+func _on_viewport_resized() -> void:
+	_update_layout()
+
+func _update_layout() -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	gravity_indicator.position = Vector2(viewport_size.x - 30, 30)
 
 func _process(delta: float) -> void:
 	if score <= 0:
@@ -58,7 +67,7 @@ func _update_score_display() -> void:
 	if score_display:
 		score_display.queue_free()
 
-	score_display = VectorFont.create_text(str(score), SCORE_SIZE, SCORE_COLOR, 2.5)
+	score_display = VectorFont.create_text(str(score), SCORE_SIZE, SCORE_COLOR, 3.5)
 	score_container.add_child(score_display)
 
 func _setup_gravity_indicator() -> void:
@@ -66,7 +75,7 @@ func _setup_gravity_indicator() -> void:
 
 	# Draw arrow pointing down (default gravity direction)
 	var arrow := Line2D.new()
-	arrow.width = 2.0
+	arrow.width = 3.0
 	arrow.default_color = Color.GREEN
 	arrow.antialiased = true
 
@@ -77,7 +86,7 @@ func _setup_gravity_indicator() -> void:
 
 	# Arrow head left
 	var head_left := Line2D.new()
-	head_left.width = 2.0
+	head_left.width = 3.0
 	head_left.default_color = Color.GREEN
 	head_left.antialiased = true
 	head_left.add_point(Vector2(-6, 4))
@@ -86,7 +95,7 @@ func _setup_gravity_indicator() -> void:
 
 	# Arrow head right
 	var head_right := Line2D.new()
-	head_right.width = 2.0
+	head_right.width = 3.0
 	head_right.default_color = Color.GREEN
 	head_right.antialiased = true
 	head_right.add_point(Vector2(6, 4))

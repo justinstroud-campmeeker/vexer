@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/high_scores.gd" id="1_scores"]
+[ext_resource type="Shader" path="res://shaders/grid_background.gdshader" id="2_shader"]
+[ext_resource type="Script" path="res://scripts/fireworks.gd" id="3_fireworks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grid"]
+shader = ExtResource("2_shader")
+shader_parameter/speed = 0.15
+shader_parameter/grid_size = 50.0
+shader_parameter/line_color = Color(0, 0.6, 1, 0.4)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/line_width = 1.5
+shader_parameter/horizon = 0.35
+shader_parameter/perspective_strength = 1.5
+
+[node name="HighScores" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_scores")
+
+[node name="GridBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+material = SubResource("ShaderMaterial_grid")
+color = Color(0, 0, 0, 1)
+
+[node name="Fireworks" type="Node2D" parent="."]
+script = ExtResource("3_fireworks")
+
+[node name="TitleContainer" type="Node2D" parent="."]
+position = Vector2(576, 80)
+
+[node name="ScoresContainer" type="Node2D" parent="."]
+position = Vector2(576, 200)
+
+[node name="BackButtonContainer" type="Node2D" parent="."]
+position = Vector2(576, 580)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxn4m7p2kqv8w"]
+[gd_scene load_steps=3 format=3 uid="uid://cxn4m7p2kqv8w"]
 
 [ext_resource type="Script" uid="uid://m5c010q432dd" path="res://scripts/bonus_shape.gd" id="1_bonus"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bounce"]
+bounce = 0.9
 
 [node name="BonusShape" type="Area2D"]
 collision_layer = 2
@@ -13,3 +16,8 @@ width = 2.0
 
 [node name="LifetimeTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="PhysicsBody" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_bounce")
+
+[node name="PhysicsCollision" type="CollisionShape2D" parent="PhysicsBody"]

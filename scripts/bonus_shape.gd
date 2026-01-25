@@ -5,6 +5,8 @@ signal hit(points: int)
 @onready var shape_line: Line2D = $ShapeLine
 @onready var lifetime_timer: Timer = $LifetimeTimer
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var physics_body: StaticBody2D = $PhysicsBody
+@onready var physics_collision: CollisionShape2D = $PhysicsBody/PhysicsCollision
 
 const SPIN_SPEED := 2.0
 const GROW_DURATION := 0.5
@@ -56,12 +58,28 @@ func _process(delta: float) -> void:
 		if current_scale >= 1.0:
 			current_scale = 1.0
 			is_growing = false
+		_update_collision_scale()
 
 	# Spin
 	rotation += SPIN_SPEED * delta
 
 	# Update visual scale
 	shape_line.scale = Vector2.ONE * current_scale
+
+func _update_collision_scale() -> void:
+	# Scale the physics collision polygon
+	var scaled_vertices: PackedVector2Array = []
+	for v in vertices:
+		scaled_vertices.append(v * current_scale)
+
+	var polygon := ConvexPolygonShape2D.new()
+	polygon.points = scaled_vertices
+	physics_collision.shape = polygon
+
+	# Also scale the area detection
+	var circle := CircleShape2D.new()
+	circle.radius = shape_size * current_scale
+	collision_shape.shape = circle
 
 func _generate_shape() -> void:
 	var sides := randi_range(3, 6)  # Triangle to hexagon
@@ -77,7 +95,7 @@ func _generate_shape() -> void:
 func _draw_shape() -> void:
 	shape_line.clear_points()
 	shape_line.default_color = shape_color
-	shape_line.width = 2.0
+	shape_line.width = 3.0
 	shape_line.antialiased = true
 
 	for point in vertices:
@@ -87,9 +105,15 @@ func _draw_shape() -> void:
 		shape_line.add_point(vertices[0])
 
 func _setup_collision() -> void:
+	# Area2D detection collision (circle for simple detection)
 	var circle := CircleShape2D.new()
 	circle.radius = shape_size
 	collision_shape.shape = circle
+
+	# Physics collision (polygon for accurate bouncing)
+	var polygon := ConvexPolygonShape2D.new()
+	polygon.points = vertices
+	physics_collision.shape = polygon
 
 func _random_color() -> Color:
 	# Exclude red (balls) and green (player line)
@@ -130,6 +154,7 @@ func _start_explosion() -> void:
 	is_exploding = true
 	shape_line.visible = false
 	collision_shape.set_deferred("disabled", true)
+	physics_collision.set_deferred("disabled", true)
 
 	var all_colors := [
 		Color.CYAN,
@@ -167,7 +192,7 @@ func _start_explosion() -> void:
 			line.default_color = frag_color
 			explosion_colors.append(frag_color)
 
-			line.width = 4.0  # Start thicker
+			line.width = 5.0  # Start thicker
 			line.antialiased = true
 			add_child(line)
 			explosion_lines.append(line)
@@ -203,7 +228,7 @@ func _update_explosion(delta: float) -> void:
 			all_faded = false
 			line.default_color = Color(base_color.r, base_color.g, base_color.b, current_alpha)
 			# Shrink width as it fades
-			line.width = 4.0 * current_alpha
+			line.width = 5.0 * current_alpha
 		else:
 			line.default_color.a = 0
 

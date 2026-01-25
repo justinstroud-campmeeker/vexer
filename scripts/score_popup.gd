@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func setup(points: int, color: Color) -> void:
 	var text := "+" + str(points)
-	text_container = VectorFont.create_text(text, 20, color, 2.0)
+	text_container = VectorFont.create_text(text, 20, color, 3.0)
 	# Center the text
 	var width := VectorFont.get_text_width(text, 20)
 	text_container.position.x = -width / 2
