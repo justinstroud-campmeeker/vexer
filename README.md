@@ -4,6 +4,8 @@ A fast-paced arcade game built with Godot 4.5 featuring vector graphics and grav
 
 **Developer:** Ovalhead Labs, 2025
 
+![Vexer Gameplay](resources/vexer_animation.gif)
+
 ## Overview
 
 Vexer is a physics-based arcade game where players draw lines to keep bouncing balls in play while collecting bonus shapes for points. The game features a retro vector aesthetic inspired by classic arcade games like Tempest.
@@ -87,6 +89,11 @@ Edge glow effects indicate ball activity:
 - Line timeout counter (top-center, when active)
 - Ball count (bottom-center)
 - Responsive layout adapts to window resizing
+
+### How To Play Screen
+- Should have a few bullet points summarizing gameplay.
+- No major detail (such as exact scoring or gravity direction details.)
+- Just describe how the game works (time limits, game over condition, etc.)
 
 ## Technical Details
 
