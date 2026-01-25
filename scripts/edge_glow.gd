@@ -2,7 +2,7 @@ extends Node2D
 
 const FADE_DURATION := 1.5
 const LINE_WIDTH := 3.0
-const LINE_GAP := 4.0  # 4px visible gap between lines
+const LINE_GAP := 8.0  # 4px visible gap between lines
 const NUM_LINES := 5
 
 var lifetime: float = 0.0

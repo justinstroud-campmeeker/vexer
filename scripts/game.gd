@@ -15,6 +15,7 @@ const BALL_SCENE := preload("res://scenes/ball.tscn")
 const BONUS_SHAPE_SCENE := preload("res://scenes/bonus_shape.tscn")
 const EDGE_GLOW_SCRIPT := preload("res://scripts/edge_glow.gd")
 const LIFE_ANNOUNCEMENT_SCRIPT := preload("res://scripts/life_announcement.gd")
+const GAME_OVER_DISPLAY_SCRIPT := preload("res://scripts/game_over_display.gd")
 
 const INITIAL_SPAWN_INTERVAL := 3.0
 const MIN_SPAWN_INTERVAL := 0.5
@@ -397,5 +398,18 @@ func _end_game() -> void:
 	if is_high_score:
 		print("New High Score!")
 
+	# Show game over display
+	_spawn_game_over_display()
+
 	await get_tree().create_timer(2.0).timeout
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _spawn_game_over_display() -> void:
+	var game_over := Node2D.new()
+	game_over.set_script(GAME_OVER_DISPLAY_SCRIPT)
+	game_over.position = viewport_size / 2.0
+
+	var game_over_layer := CanvasLayer.new()
+	game_over_layer.layer = 30
+	game_over_layer.add_child(game_over)
+	add_child(game_over_layer)

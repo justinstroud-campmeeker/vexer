@@ -98,7 +98,7 @@ func _update_collision_scale() -> void:
 	collision_shape.shape = circle
 
 func _generate_shape() -> void:
-	var sides := randi_range(3, 6)  # Triangle to hexagon
+	var sides := randi_range(3, 8)  # Triangle to hexagon
 	vertices.clear()
 
 	for i in range(sides):
