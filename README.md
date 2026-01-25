@@ -4,7 +4,7 @@ A fast-paced arcade game built with Godot 4.5 featuring vector graphics and grav
 
 **Developer:** Ovalhead Labs, 2025
 
-![Vexer Gameplay](resources/vexer_animation.gif)
+![Vexer Gameplay](resources/vexer_demo.gif)
 
 ## Overview
 
