@@ -79,6 +79,10 @@ func add_ball_lost() -> void:
 	if balls_lost >= MAX_BALLS_LOST:
 		game_over.emit()
 
+func add_life() -> void:
+	balls_lost = maxi(balls_lost - 1, 0)
+	_update_balls_lost_display()
+
 func get_score() -> int:
 	return score
 

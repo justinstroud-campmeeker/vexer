@@ -21,7 +21,8 @@ GameState="*res://scripts/game_state.gd"
 
 [editor]
 
-movie_writer/movie_file="/Volumes/1tb/godot/vexer/resources/vexer.png"
+movie_writer/movie_file="/Volumes/1tb/godot/vexer/resources/demo.png"
+movie_writer/fps=30
 
 [rendering]
 

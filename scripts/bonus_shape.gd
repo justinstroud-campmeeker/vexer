@@ -16,6 +16,10 @@ const SHAPE_SIZE_MIN := 40.0
 const SHAPE_SIZE_MAX := 80.0
 const POINTS_MIN := 50   # Points for largest shape
 const POINTS_MAX := 250  # Points for smallest shape
+const THROB_SPEED := 4.0
+const THROB_WIDTH_MIN := 2.5
+const THROB_WIDTH_MAX := 5.0
+const THROB_GLOW_AMOUNT := 0.4
 
 var shape_color: Color
 var shape_size: float
@@ -24,6 +28,7 @@ var vertices: PackedVector2Array = []
 var current_scale: float = 0.0
 var is_growing: bool = true
 var is_exploding: bool = false
+var throb_time: float = 0.0
 var explosion_lines: Array[Line2D] = []
 var explosion_velocities: Array[Vector2] = []
 var explosion_rotations: Array[float] = []
@@ -62,6 +67,17 @@ func _process(delta: float) -> void:
 
 	# Spin
 	rotation += SPIN_SPEED * delta
+
+	# Throb and glow effect
+	throb_time += delta * THROB_SPEED
+	var throb_t := (sin(throb_time) + 1.0) / 2.0  # 0 to 1 oscillation
+
+	# Pulse line width
+	shape_line.width = lerpf(THROB_WIDTH_MIN, THROB_WIDTH_MAX, throb_t)
+
+	# Glow by lerping toward white
+	var glow_color := shape_color.lerp(Color.WHITE, throb_t * THROB_GLOW_AMOUNT)
+	shape_line.default_color = glow_color
 
 	# Update visual scale
 	shape_line.scale = Vector2.ONE * current_scale

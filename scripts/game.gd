@@ -14,6 +14,7 @@ extends Node2D
 const BALL_SCENE := preload("res://scenes/ball.tscn")
 const BONUS_SHAPE_SCENE := preload("res://scenes/bonus_shape.tscn")
 const EDGE_GLOW_SCRIPT := preload("res://scripts/edge_glow.gd")
+const LIFE_ANNOUNCEMENT_SCRIPT := preload("res://scripts/life_announcement.gd")
 
 const INITIAL_SPAWN_INTERVAL := 3.0
 const MIN_SPAWN_INTERVAL := 0.5
@@ -23,7 +24,7 @@ const MIN_BONUS_SHAPES := 1
 const MAX_BONUS_SHAPES := 5
 const BOUNDARY_MARGIN := 50.0
 const FLASH_DURATION := 0.15
-const BALL_LOST_PENALTY := 50
+const LIFE_BONUS_THRESHOLD := 1000  # Points needed to earn an extra life
 
 @export var gravity_rotation_threshold := 1000  # Points needed to rotate gravity
 
@@ -43,6 +44,7 @@ var flash_timer: float = 0.0
 var is_flashing: bool = false
 var current_gravity_direction: int = 0
 var last_gravity_threshold: int = 0
+var last_life_threshold: int = 0
 var gravity_mode: int = 2  # 0=none, 1=up/down, 2=full
 var ball_count_container: CanvasLayer = null
 var ball_count_display: Node2D = null
@@ -160,6 +162,7 @@ func start_game() -> void:
 	current_spawn_interval = INITIAL_SPAWN_INTERVAL * (1.0 / GameState.get_spawn_multiplier())
 	current_gravity_direction = 0
 	last_gravity_threshold = 0
+	last_life_threshold = 0
 	gravity_mode = GameState.get_gravity_mode()
 	hud.reset()
 	hud.set_gravity_direction(current_gravity_direction)
@@ -328,8 +331,7 @@ func _on_ball_lost(ball: Node) -> void:
 	# Red glow on exit edge
 	_spawn_edge_glow(_get_exit_edge(), Color.RED)
 
-	# Subtract score, track ball lost, flash screen, explode shapes
-	hud.subtract_score(BALL_LOST_PENALTY)
+	# Track ball lost, flash screen, explode shapes
 	hud.add_ball_lost()
 	_trigger_flash()
 	_explode_all_shapes()
@@ -355,6 +357,27 @@ func _on_score_changed(new_score: int, _old_score: int) -> void:
 	if new_threshold > last_gravity_threshold:
 		last_gravity_threshold = new_threshold
 		_rotate_gravity()
+
+	# Check for life bonus
+	@warning_ignore("integer_division")
+	var new_life_threshold := new_score / LIFE_BONUS_THRESHOLD
+	if new_life_threshold > last_life_threshold:
+		last_life_threshold = new_life_threshold
+		_award_bonus_life()
+
+func _award_bonus_life() -> void:
+	hud.add_life()
+	_spawn_life_announcement()
+
+func _spawn_life_announcement() -> void:
+	var announcement := Node2D.new()
+	announcement.set_script(LIFE_ANNOUNCEMENT_SCRIPT)
+	announcement.position = viewport_size / 2.0
+
+	var announcement_layer := CanvasLayer.new()
+	announcement_layer.layer = 25
+	announcement_layer.add_child(announcement)
+	add_child(announcement_layer)
 
 func _on_game_over() -> void:
 	_end_game()
