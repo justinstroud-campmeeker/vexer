@@ -12,6 +12,9 @@ radius = 15.0
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_ball")
 gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 4
+contact_monitor = true
 script = ExtResource("1_ball")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

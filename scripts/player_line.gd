@@ -8,6 +8,7 @@ const NORMAL_WIDTH := 6.0
 const THROB_WIDTH := 10.0
 const THROB_DURATION := 0.15
 const LINE_TIMEOUT := 5.0
+const COLLISION_THICKNESS := 12.0  # Thicker than visual for reliable collision
 
 var is_drawing: bool = false
 var start_point: Vector2 = Vector2.ZERO
@@ -132,11 +133,19 @@ func _update_collision() -> void:
 		collision_shape.shape = null
 		return
 
-	# Create segment shape for the line
-	var segment := SegmentShape2D.new()
-	segment.a = start_point
-	segment.b = end_point
-	collision_shape.shape = segment
+	# Use RectangleShape2D with thickness instead of infinitely thin SegmentShape2D
+	# This prevents fast-moving balls from tunneling through the line
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(length, COLLISION_THICKNESS)
+
+	# Position collision shape at the midpoint of the line
+	var midpoint := (start_point + end_point) / 2.0
+	collision_shape.position = midpoint
+
+	# Rotate collision shape to align with the line direction
+	collision_shape.rotation = direction.angle()
+
+	collision_shape.shape = rect
 
 func start_throb() -> void:
 	is_throbbing = true

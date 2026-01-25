@@ -328,8 +328,9 @@ func _on_ball_lost(ball: Node) -> void:
 	# Red glow on exit edge
 	_spawn_edge_glow(_get_exit_edge(), Color.RED)
 
-	# Subtract score, flash screen, explode shapes
+	# Subtract score, track ball lost, flash screen, explode shapes
 	hud.subtract_score(BALL_LOST_PENALTY)
+	hud.add_ball_lost()
 	_trigger_flash()
 	_explode_all_shapes()
 	ball.queue_free()

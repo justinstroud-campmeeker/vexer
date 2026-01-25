@@ -8,16 +8,19 @@ signal game_over
 
 const SCORE_SIZE := 28.0
 const SCORE_COLOR := Color.GREEN
-const ZERO_SCORE_TIMEOUT := 5.0
+const MAX_BALLS_LOST := 20
 
 var score: int = 0
+var balls_lost: int = 0
 var score_display: Node2D = null
-var time_at_zero: float = 0.0
 var gravity_arrow: Node2D = null
+var balls_lost_container: CanvasLayer = null
+var balls_lost_display: Node2D = null
 
 func _ready() -> void:
 	_update_score_display()
 	_setup_gravity_indicator()
+	_setup_balls_lost_display()
 	_update_layout()
 	get_tree().root.size_changed.connect(_on_viewport_resized)
 
@@ -27,14 +30,34 @@ func _on_viewport_resized() -> void:
 func _update_layout() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
 	gravity_indicator.position = Vector2(viewport_size.x - 30, 30)
+	_update_balls_lost_display()
 
-func _process(delta: float) -> void:
-	if score <= 0:
-		time_at_zero += delta
-		if time_at_zero >= ZERO_SCORE_TIMEOUT:
-			game_over.emit()
+func _setup_balls_lost_display() -> void:
+	balls_lost_container = CanvasLayer.new()
+	balls_lost_container.layer = 15
+	add_child(balls_lost_container)
+	_update_balls_lost_display()
+
+func _update_balls_lost_display() -> void:
+	if balls_lost_display:
+		balls_lost_display.queue_free()
+
+	var remaining := MAX_BALLS_LOST - balls_lost
+	var lost_text := "LIVES: " + str(remaining)
+
+	var color: Color
+	if remaining > 10:
+		color = Color.GREEN
+	elif remaining > 5:
+		color = Color.YELLOW
 	else:
-		time_at_zero = 0.0
+		color = Color.RED
+
+	balls_lost_display = VectorFont.create_text(lost_text, 20.0, color, 3.0)
+	var text_width := VectorFont.get_text_width(lost_text, 20.0)
+	var viewport_size := get_viewport().get_visible_rect().size
+	balls_lost_display.position = Vector2(viewport_size.x - text_width - 20, viewport_size.y - 40)
+	balls_lost_container.add_child(balls_lost_display)
 
 func add_score(points: int) -> void:
 	var old_score := score
@@ -50,13 +73,20 @@ func subtract_score(points: int) -> void:
 	_update_score_display()
 	score_changed.emit(score, old_score)
 
+func add_ball_lost() -> void:
+	balls_lost += 1
+	_update_balls_lost_display()
+	if balls_lost >= MAX_BALLS_LOST:
+		game_over.emit()
+
 func get_score() -> int:
 	return score
 
 func reset() -> void:
 	score = 0
-	time_at_zero = 0.0
+	balls_lost = 0
 	_update_score_display()
+	_update_balls_lost_display()
 
 func set_gravity_direction(direction: int) -> void:
 	# direction: 0=North(down), 1=East(left), 2=South(up), 3=West(right)

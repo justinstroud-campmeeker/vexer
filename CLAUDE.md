@@ -88,6 +88,11 @@ Edge glow effects indicate ball activity:
 - Ball count (bottom-center)
 - Responsive layout adapts to window resizing
 
+### How To Play Screen
+- Should have a few bullet points summarizing gameplay.
+- No major detail (such as exact scoring or gravity direction details.)
+- Just describe how the game works (time limits, game over condition, etc.)
+
 ## Technical Details
 
 ### Requirements
