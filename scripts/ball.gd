@@ -131,9 +131,11 @@ func _on_body_entered(body: Node) -> void:
 	if body.get_parent() and body.get_parent().name == "PlayerLine":
 		_start_throb()
 		hit_player_line.emit()
+		SoundManager.play_bounce()
 	# Check if it's a wall
 	elif body.name in ["NorthWall", "SouthWall", "EastWall", "WestWall"]:
 		hit_wall.emit(body.name)
+		SoundManager.play_bounce()
 
 func _on_body_exited(body: Node) -> void:
 	bodies_in_contact.erase(body)

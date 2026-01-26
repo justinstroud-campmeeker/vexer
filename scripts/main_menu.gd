@@ -16,6 +16,7 @@ func _ready() -> void:
 	_create_footer()
 	_update_layout()
 	get_tree().root.size_changed.connect(_on_viewport_resized)
+	SoundManager.start_menu_music()
 
 func _on_viewport_resized() -> void:
 	_update_layout()
@@ -27,8 +28,8 @@ func _update_layout() -> void:
 	footer_container.position = Vector2(viewport_size.x / 2.0, viewport_size.y - 50)
 
 func _create_title() -> void:
-	var title := VectorFont.create_text("VEXER", 60.0, Color.CYAN, 4.0)
-	var title_width := VectorFont.get_text_width("VEXER", 60.0)
+	var title := VectorFont.create_text("VEXER", 120.0, Color.YELLOW, 8.0)
+	var title_width := VectorFont.get_text_width("VEXER", 120.0)
 	title.position.x = -title_width / 2.0
 	title_container.add_child(title)
 

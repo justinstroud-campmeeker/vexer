@@ -52,6 +52,7 @@ var ball_count_display: Node2D = null
 
 func _ready() -> void:
 	viewport_size = get_viewport_rect().size
+	SoundManager.stop_menu_music()
 
 	_setup_screen_flash()
 	_setup_ball_counter()
@@ -337,6 +338,7 @@ func _on_ball_lost(ball: Node) -> void:
 	_trigger_flash()
 	_explode_all_shapes()
 	ball.queue_free()
+	SoundManager.play_lost_ball()
 
 func _on_bonus_hit(points: int) -> void:
 	hud.add_score(points)
@@ -369,6 +371,7 @@ func _on_score_changed(new_score: int, _old_score: int) -> void:
 func _award_bonus_life() -> void:
 	hud.add_life()
 	_spawn_life_announcement()
+	SoundManager.play_extra_life()
 
 func _spawn_life_announcement() -> void:
 	var announcement := Node2D.new()
@@ -390,6 +393,7 @@ func _explode_all_shapes() -> void:
 
 func _end_game() -> void:
 	stop_game()
+	SoundManager.play_game_over()
 	var final_score: int = hud.get_score()
 	print("Game Over! Final Score: ", final_score)
 

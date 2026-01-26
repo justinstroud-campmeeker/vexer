@@ -6,7 +6,11 @@
       "mcp__godot__get_debug_output",
       "mcp__godot__stop_project",
       "Bash(magick:*)",
-      "Bash(ffmpeg:*)"
+      "Bash(ffmpeg:*)",
+      "Bash(ls:*)",
+      "Bash(godot --headless --import:*)",
+      "Bash(mdfind:*)",
+      "mcp__godot__launch_editor"
     ]
   }
 }

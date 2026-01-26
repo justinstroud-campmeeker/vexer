@@ -83,14 +83,17 @@ func _create_buttons() -> void:
 
 func _on_easy_pressed() -> void:
 	GameState.difficulty = GameState.Difficulty.EASY
+	SoundManager.play_new_game()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 func _on_medium_pressed() -> void:
 	GameState.difficulty = GameState.Difficulty.MEDIUM
+	SoundManager.play_new_game()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 func _on_hard_pressed() -> void:
 	GameState.difficulty = GameState.Difficulty.HARD
+	SoundManager.play_new_game()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 func _on_back_pressed() -> void:
