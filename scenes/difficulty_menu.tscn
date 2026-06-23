@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://cu8dv7c8xn1rt"]
 
-[ext_resource type="Script" path="res://scripts/difficulty_menu.gd" id="1_diff"]
-[ext_resource type="Shader" path="res://shaders/grid_background.gdshader" id="2_shader"]
+[ext_resource type="Script" uid="uid://b0qf5xm77rf2n" path="res://scripts/difficulty_menu.gd" id="1_diff"]
+[ext_resource type="Shader" uid="uid://bdx33b84o8ew3" path="res://shaders/grid_background.gdshader" id="2_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_grid"]
 shader = ExtResource("2_shader")
@@ -13,7 +13,7 @@ shader_parameter/line_width = 1.5
 shader_parameter/horizon = 0.35
 shader_parameter/perspective_strength = 1.5
 
-[node name="DifficultyMenu" type="Control"]
+[node name="DifficultyMenu" type="Control" unique_id=1447031747]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,18 +22,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_diff")
 
-[node name="GridBackground" type="ColorRect" parent="."]
+[node name="GridBackground" type="ColorRect" parent="." unique_id=185487728]
+material = SubResource("ShaderMaterial_grid")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-material = SubResource("ShaderMaterial_grid")
 color = Color(0, 0, 0, 1)
 
-[node name="TitleContainer" type="Node2D" parent="."]
+[node name="TitleContainer" type="Node2D" parent="." unique_id=1174987615]
 position = Vector2(576, 100)
 
-[node name="ButtonsContainer" type="Node2D" parent="."]
+[node name="ButtonsContainer" type="Node2D" parent="." unique_id=1342849865]
 position = Vector2(576, 250)

@@ -52,12 +52,12 @@ func _create_scores() -> void:
 			GameState.Difficulty.HARD: diff_color = Color.RED
 
 		# Difficulty label
-		var diff_label := VectorFont.create_text(diff_name, 28.0, diff_color, 3.0)
-		var diff_width := VectorFont.get_text_width(diff_name, 28.0)
+		var diff_label := VectorFont.create_text(diff_name, 50.0, diff_color, 3.0)
+		var diff_width := VectorFont.get_text_width(diff_name, 50.0)
 		diff_label.position = Vector2(-diff_width / 2.0, y_offset)
 		scores_container.add_child(diff_label)
 
-		y_offset += 35.0
+		y_offset += 55.0
 
 		# Score and date
 		var score_text: String
@@ -66,8 +66,8 @@ func _create_scores() -> void:
 		else:
 			score_text = "NO SCORE YET"
 
-		var score_label := VectorFont.create_text(score_text, 20.0, Color.WHITE, 2.5)
-		var score_width := VectorFont.get_text_width(score_text, 20.0)
+		var score_label := VectorFont.create_text(score_text, 50.0, Color.WHITE, 2.5)
+		var score_width := VectorFont.get_text_width(score_text, 50.0)
 		score_label.position = Vector2(-score_width / 2.0, y_offset)
 		scores_container.add_child(score_label)
 

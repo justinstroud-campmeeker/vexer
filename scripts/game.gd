@@ -27,7 +27,7 @@ const BOUNDARY_MARGIN := 50.0
 const FLASH_DURATION := 0.15
 const LIFE_BONUS_THRESHOLD := 1000  # Points needed to earn an extra life
 
-@export var gravity_rotation_threshold := 1000  # Points needed to rotate gravity
+@export var GRAVITY_ROTATION_THRESHOLD := 1000  # Points needed to rotate gravity
 
 # Gravity directions: 0=North(down), 1=East(left), 2=South(up), 3=West(right)
 const GRAVITY_VECTORS := [
@@ -356,7 +356,7 @@ func _remove_random_ball() -> void:
 func _on_score_changed(new_score: int, _old_score: int) -> void:
 	# Check for gravity rotation
 	@warning_ignore("integer_division")
-	var new_threshold := new_score / gravity_rotation_threshold
+	var new_threshold := new_score / GRAVITY_ROTATION_THRESHOLD
 	if new_threshold > last_gravity_threshold:
 		last_gravity_threshold = new_threshold
 		_rotate_gravity()

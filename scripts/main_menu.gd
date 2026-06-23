@@ -38,7 +38,7 @@ func _create_buttons() -> void:
 	new_game_button = Node2D.new()
 	new_game_button.set_script(MENU_BUTTON_SCRIPT)
 	new_game_button.text = "NEW GAME"
-	new_game_button.font_size = 30.0
+	new_game_button.font_size = 60.0
 	new_game_button.position.y = 0
 	buttons_container.add_child(new_game_button)
 	new_game_button.pressed.connect(_on_new_game_pressed)
@@ -47,8 +47,8 @@ func _create_buttons() -> void:
 	how_to_play_button = Node2D.new()
 	how_to_play_button.set_script(MENU_BUTTON_SCRIPT)
 	how_to_play_button.text = "HOW TO PLAY"
-	how_to_play_button.font_size = 30.0
-	how_to_play_button.position.y = 60
+	how_to_play_button.font_size = 60.0
+	how_to_play_button.position.y = 70
 	buttons_container.add_child(how_to_play_button)
 	how_to_play_button.pressed.connect(_on_how_to_play_pressed)
 
@@ -56,8 +56,8 @@ func _create_buttons() -> void:
 	high_scores_button = Node2D.new()
 	high_scores_button.set_script(MENU_BUTTON_SCRIPT)
 	high_scores_button.text = "HIGH SCORES"
-	high_scores_button.font_size = 30.0
-	high_scores_button.position.y = 120
+	high_scores_button.font_size = 60.0
+	high_scores_button.position.y = 140
 	buttons_container.add_child(high_scores_button)
 	high_scores_button.pressed.connect(_on_high_scores_pressed)
 

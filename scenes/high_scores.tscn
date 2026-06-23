@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://dh12upoa1mhvk"]
 
-[ext_resource type="Script" path="res://scripts/high_scores.gd" id="1_scores"]
-[ext_resource type="Shader" path="res://shaders/grid_background.gdshader" id="2_shader"]
-[ext_resource type="Script" path="res://scripts/fireworks.gd" id="3_fireworks"]
+[ext_resource type="Script" uid="uid://bhwgbs4t6xswi" path="res://scripts/high_scores.gd" id="1_scores"]
+[ext_resource type="Shader" uid="uid://bdx33b84o8ew3" path="res://shaders/grid_background.gdshader" id="2_shader"]
+[ext_resource type="Script" uid="uid://b3v157ohgaqd1" path="res://scripts/fireworks.gd" id="3_fireworks"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_grid"]
 shader = ExtResource("2_shader")
@@ -14,7 +14,7 @@ shader_parameter/line_width = 1.5
 shader_parameter/horizon = 0.35
 shader_parameter/perspective_strength = 1.5
 
-[node name="HighScores" type="Control"]
+[node name="HighScores" type="Control" unique_id=1667488004]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,24 +23,24 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_scores")
 
-[node name="GridBackground" type="ColorRect" parent="."]
+[node name="GridBackground" type="ColorRect" parent="." unique_id=1835859301]
+material = SubResource("ShaderMaterial_grid")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-material = SubResource("ShaderMaterial_grid")
 color = Color(0, 0, 0, 1)
 
-[node name="Fireworks" type="Node2D" parent="."]
+[node name="Fireworks" type="Node2D" parent="." unique_id=1775072377]
 script = ExtResource("3_fireworks")
 
-[node name="TitleContainer" type="Node2D" parent="."]
+[node name="TitleContainer" type="Node2D" parent="." unique_id=1740990274]
 position = Vector2(576, 80)
 
-[node name="ScoresContainer" type="Node2D" parent="."]
+[node name="ScoresContainer" type="Node2D" parent="." unique_id=996777645]
 position = Vector2(576, 200)
 
-[node name="BackButtonContainer" type="Node2D" parent="."]
-position = Vector2(576, 580)
+[node name="BackButtonContainer" type="Node2D" parent="." unique_id=909935862]
+position = Vector2(576, 657)

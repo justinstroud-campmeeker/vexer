@@ -25,8 +25,8 @@ func _update_layout() -> void:
 	buttons_container.position = Vector2(viewport_size.x / 2.0, viewport_size.y * 0.4)
 
 func _create_title() -> void:
-	var title := VectorFont.create_text("SELECT DIFFICULTY", 40.0, Color.CYAN, 3.5)
-	var title_width := VectorFont.get_text_width("SELECT DIFFICULTY", 40.0)
+	var title := VectorFont.create_text("SELECT DIFFICULTY", 50.0, Color.CYAN, 3.5)
+	var title_width := VectorFont.get_text_width("SELECT DIFFICULTY", 50.0)
 	title.position.x = -title_width / 2.0
 	title_container.add_child(title)
 
@@ -38,7 +38,7 @@ func _create_buttons() -> void:
 	easy_button = Node2D.new()
 	easy_button.set_script(MENU_BUTTON_SCRIPT)
 	easy_button.text = "EASY"
-	easy_button.font_size = 30.0
+	easy_button.font_size = 60.0
 	easy_button.normal_color = Color.GREEN
 	easy_button.hover_color = Color(0.5, 1, 0.5)
 	easy_button.position.y = y_pos
@@ -50,7 +50,7 @@ func _create_buttons() -> void:
 	medium_button = Node2D.new()
 	medium_button.set_script(MENU_BUTTON_SCRIPT)
 	medium_button.text = "MEDIUM"
-	medium_button.font_size = 30.0
+	medium_button.font_size = 60.0
 	medium_button.normal_color = Color.YELLOW
 	medium_button.hover_color = Color(1, 1, 0.5)
 	medium_button.position.y = y_pos
@@ -62,7 +62,7 @@ func _create_buttons() -> void:
 	hard_button = Node2D.new()
 	hard_button.set_script(MENU_BUTTON_SCRIPT)
 	hard_button.text = "HARD"
-	hard_button.font_size = 30.0
+	hard_button.font_size = 60.0
 	hard_button.normal_color = Color.RED
 	hard_button.hover_color = Color(1, 0.5, 0.5)
 	hard_button.position.y = y_pos
@@ -74,7 +74,7 @@ func _create_buttons() -> void:
 	back_button = Node2D.new()
 	back_button.set_script(MENU_BUTTON_SCRIPT)
 	back_button.text = "BACK"
-	back_button.font_size = 24.0
+	back_button.font_size = 50.0
 	back_button.normal_color = Color(0.6, 0.6, 0.6)
 	back_button.hover_color = Color.WHITE
 	back_button.position.y = y_pos

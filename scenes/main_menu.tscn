@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cstdov6g1vdgk"]
+[gd_scene format=3 uid="uid://cstdov6g1vdgk"]
 
 [ext_resource type="Script" uid="uid://dd0u8137ceetf" path="res://scripts/main_menu.gd" id="1_main"]
 [ext_resource type="Shader" uid="uid://bdx33b84o8ew3" path="res://shaders/grid_background.gdshader" id="2_shader"]
@@ -13,7 +13,7 @@ shader_parameter/line_width = 1.5
 shader_parameter/horizon = 0.35
 shader_parameter/perspective_strength = 1.5
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=100808271]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
-[node name="GridBackground" type="ColorRect" parent="."]
+[node name="GridBackground" type="ColorRect" parent="." unique_id=298083281]
 material = SubResource("ShaderMaterial_grid")
 layout_mode = 1
 anchors_preset = 15
@@ -32,11 +32,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TitleContainer" type="Node2D" parent="."]
+[node name="TitleContainer" type="Node2D" parent="." unique_id=1369047059]
 position = Vector2(576, 150)
 
-[node name="ButtonsContainer" type="Node2D" parent="."]
+[node name="ButtonsContainer" type="Node2D" parent="." unique_id=1863812057]
 position = Vector2(576, 350)
 
-[node name="FooterContainer" type="Node2D" parent="."]
+[node name="FooterContainer" type="Node2D" parent="." unique_id=1198019143]
 position = Vector2(576, 600)
