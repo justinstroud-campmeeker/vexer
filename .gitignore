@@ -6,4 +6,5 @@
 /vexer.*
 /*.zip
 /index.*
+/build/
 
